@@ -26,14 +26,6 @@
 - name: Mounts tasks
   ansible.builtin.import_tasks: "subtasks/mounts.yml"
 
-- name: CPU Frequency tasks
-  ansible.builtin.include_tasks: "subtasks/cpufrequency.yml"
-  when: cpu_performance_mode
-
-- name: Remove CPU Power task
-  ansible.builtin.include_tasks: "subtasks/remove_cpupower.yml"
-  when: cpu_performance_mode
-
 - name: Set Time Zone task
   ansible.builtin.import_tasks: "subtasks/timezone.yml"
   when: (tz is defined)
