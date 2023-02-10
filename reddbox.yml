@@ -37,7 +37,7 @@
     - { role: grafana, tags: ['grafana'] }
     - { role: homeassistant, tags: ['homeassistant'] }
     - { role: influxdb, tags: ['influxdb'] }
-    - { role: mosquitto, tags: [mosquitto'] }
+    - { role: mosquitto, tags: ['mosquitto'] }
     - { role: node_red, tags: ['node_red'] }
     - { role: authelia, tags: ['authelia', 'authelia-reset'] }
     - { role: autoheal, tags: ['autoheal'] }

@@ -19,7 +19,7 @@
       - '"{{ item }}" in available_ansible_tags.stdout_lines'
     msg: >-
       You must supply valid tag(s)
-      (get a list of valid tags by running 'sb list')
+      (get a list of valid tags by running 'rb list')
     quiet: true
   with_items: "{{ ansible_run_tags }}"
   when: (not continuous_integration)
