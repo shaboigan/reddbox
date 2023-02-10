@@ -12,8 +12,6 @@
   register: available_ansible_tags
   changed_when: false
   when: (not continuous_integration)
-        and ('reddbox_mod' not in playbook_dir)
-        and ('sandbox' not in playbook_dir)
 
 - name: Ansible Tags | Ensure valid Ansible tag(s) were provided
   ansible.builtin.assert:
@@ -25,5 +23,3 @@
     quiet: true
   with_items: "{{ ansible_run_tags }}"
   when: (not continuous_integration)
-        and ('reddbox_mod' not in playbook_dir)
-        and ('sandbox' not in playbook_dir)

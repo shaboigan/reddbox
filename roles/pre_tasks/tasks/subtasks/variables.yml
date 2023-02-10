@@ -15,17 +15,6 @@
   ansible.builtin.include_vars: "{{ item }}/main.yml"
   with_items: "{{ reddbox_roles.stdout_lines }}"
 
-- name: Reddbox
-  when: (playbook_dir == "/opt/reddbox_mod")
-  block:
-    - name: Find Reddbox roles
-      ansible.builtin.shell: "find /opt/sandbox/roles -type d -name 'defaults'"
-      register: sandbox_roles
-
-    - name: Include Reddbox role default vars
-      ansible.builtin.include_vars: "{{ item }}/main.yml"
-      with_items: "{{ sandbox_roles.stdout_lines }}"
-
 - name: Check if 'localhost.yml' exists
   ansible.builtin.stat:
     path: "/srv/git/reddbox/inventories/host_vars/localhost.yml"

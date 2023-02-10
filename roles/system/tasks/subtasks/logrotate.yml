@@ -36,26 +36,6 @@
               notifempty
               create 644 {{ user.name }} {{ user.name }}
           }
-      - path: "sandbox"
-        content: |
-          /opt/sandbox/sandbox.log {
-              weekly
-              rotate 5
-              size {{ reddbox_max_log_size }}
-              missingok
-              notifempty
-              create 644 {{ user.name }} {{ user.name }}
-          }
-      - path: "reddbox_mod"
-        content: |
-          /opt/reddbox_mod/reddbox_mod.log {
-              weekly
-              rotate 5
-              size {{ reddbox_max_log_size }}
-              missingok
-              notifempty
-              create 644 {{ user.name }} {{ user.name }}
-          }
       - path: "traefik"
         content: |
           /opt/traefik/*.log {

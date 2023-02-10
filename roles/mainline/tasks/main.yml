@@ -19,7 +19,7 @@
 
 - name: Add cappelikan/ppa repository
   ansible.builtin.apt_repository:
-    repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/cappelikan.gpg] http://ppa.launchpad.net/cappelikan/ppa/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} main"
+    repo: "deb [arch=aarch64 signed-by=/usr/share/keyrings/cappelikan.gpg] http://ppa.launchpad.net/cappelikan/ppa/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} main"
     filename: "cappelikan"
     state: present
     update_cache: true

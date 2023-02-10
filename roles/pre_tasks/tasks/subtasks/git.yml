@@ -20,7 +20,3 @@
 - name: Git | Set sb repository as safe directory
   ansible.builtin.shell: git config --global --add safe.directory /srv/git/sb
   when: ('preinstall' in ansible_run_tags) or (not '/srv/git/sb' in git_config.stdout)
-
-- name: Git | Set Reddbox repository as safe directory
-  ansible.builtin.shell: git config --global --add safe.directory /opt/sandbox
-  when: ('preinstall' in ansible_run_tags) or (not '/opt/sandbox' in git_config.stdout)

@@ -7,11 +7,11 @@
 #                   GNU General Public License v3.0                     #
 #########################################################################
 ---
-- name: System | Ensure Ansible is running on Ubuntu 20.04
+- name: System | Ensure Ansible is running on Raspbian 10
   ansible.builtin.assert:
     that:
-      - ((ansible_distribution == 'Ubuntu') and (ansible_facts['distribution_version'] is version('20.04', '>=')))
+      - ((ansible_distribution == 'Raspbian') and (ansible_facts['distribution_version'] is version('10', '>=')))
     fail_msg: >-
-      Reddbox was designed for use on Ubuntu servers running version 20.04.
+      Reddbox was designed for use on Raspbian servers running version 10.
     success_msg: >-
       System is running {{ ansible_lsb.description if ansible_lsb is defined else (ansible_distribution + ' ' + ansible_distribution_version) }}.
