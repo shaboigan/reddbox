@@ -12,13 +12,13 @@
     name: cpufrequtils
     state: present
 
-- name: CPU Frequency | Install 'linux-tools' for Raspbian
+- name: CPU Frequency | Install 'linux-tools' for Debian
   ansible.builtin.apt:
     state: present
     name:
       - linux-tools-common
       - linux-tools-generic
-  when: (ansible_distribution == 'Raspbian')
+  when: (ansible_distribution == 'Debian GNU/Linux')
 
 - name: "CPU Frequency | Install 'linux-tools-{{ ansible_kernel }}'"
   ansible.builtin.shell: "apt-get install -qq $(apt-cache search -n linux-tools-{{ ansible_kernel }} | awk '{print $1}' | tail -n 1)"
