@@ -10,7 +10,7 @@
 - name: System | Ensure Ansible is running on Debian 10
   ansible.builtin.assert:
     that:
-      - ((ansible_distribution == 'Debian GNU/Linux') and (ansible_facts['distribution_version'] is version('10', '>=')))
+      - ((ansible_distribution == 'Debian') and (ansible_facts['distribution_version'] is version('10', '>=')))
     fail_msg: >-
       Reddbox was designed for use on Debian servers running version 10.
     success_msg: >-
