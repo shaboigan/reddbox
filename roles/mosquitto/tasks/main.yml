@@ -1,0 +1,42 @@
+#########################################################################
+# Title:            Reddbox: mosquitto                                       #
+# Author(s):        CHAIR/Raneydazed                                    #
+# URL:              https://github.com/shaboigan/Reddbox                 #
+# --                                                                    #
+#########################################################################
+#                   GNU General Public License v3.0                     #
+#########################################################################
+---
+- name: Remove existing Docker container
+  ansible.builtin.include_tasks: "{{ resources_tasks_path }}/docker/remove_docker_container.yml"
+
+- name: Create directories
+  ansible.builtin.include_tasks: "{{ resources_tasks_path }}/directories/create_directories.yml"
+
+- name: Check if `{{ mosquitto_paths_config_location | basename }}` exists
+  ansible.builtin.stat:
+    path: "{{ mosquitto_paths_config_location }}"
+  register: mosquitto_config
+
+- name: Import default config
+  ansible.builtin.template:
+    src: mosquitto.conf.j2
+    dest: "{{ mosquitto_paths_config_location }}"
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: 0775
+
+  when: (not mosquitto_config.stat.exists) and (not continuous_integration)
+
+- name: Create Docker container
+  ansible.builtin.include_tasks: "{{ resources_tasks_path }}/docker/create_docker_container.yml"
+
+- name: Chown '{{ mosquitto_paths_location }}'
+  ansible.builtin.file:
+    path: "{{ mosquitto_paths_location }}"
+    state: directory
+    recurse: true
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: "0775"
+  when: (not continuous_integration)

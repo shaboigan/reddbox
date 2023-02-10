@@ -1,0 +1,155 @@
+##########################################################################
+# Title:         Reddbox: WIP | Default Variables                     #
+# Author(s):     salty                                                   #
+# URL:           https://github.com/shaboigan/Reddbox                     #
+# --                                                                     #
+##########################################################################
+#                   GNU General Public License v3.0                      #
+##########################################################################
+---
+################################
+# Basics
+################################
+
+esphome_instances: ["esphome"]
+
+################################
+# Paths
+################################
+
+esphome_paths_folder: "{{ esphome_name }}"
+esphome_paths_location: "{{ server_appdata_path }}/{{ esphome_paths_folder }}"
+esphome_paths_folders_list:
+  - "{{ esphome_paths_location }}"
+
+################################
+# Web
+################################
+
+esphome_web_subdomain: "{{ esphome_name }}"
+esphome_web_domain: "{{ user.domain }}"
+esphome_web_port: "6052"
+esphome_web_url: "{{ 'https://' + lookup('vars', esphome_name + '_web_subdomain', default=esphome_web_subdomain)
+                      + '.' + lookup('vars', esphome_name + '_web_domain', default=esphome_web_domain) }}"
+
+################################
+# DNS
+################################
+
+esphome_dns_record: "{{ lookup('vars', esphome_name + '_web_subdomain', default=esphome_web_subdomain) }}"
+esphome_dns_zone: "{{ lookup('vars', esphome_name + '_web_domain', default=esphome_web_domain) }}"
+esphome_dns_proxy: "{{ dns.proxied }}"
+
+################################
+# Traefik
+################################
+
+esphome_traefik_sso_middleware: "{{ traefik_default_sso_middleware }}"
+
+esphome_traefik_middleware_default: "{{ traefik_default_middleware + ','
+                                       + lookup('vars', esphome_name + '_traefik_sso_middleware', default=esphome_traefik_sso_middleware)
+                                    if (lookup('vars', esphome_name + '_traefik_sso_middleware', default=esphome_traefik_sso_middleware) | length > 0)
+                                    else traefik_default_middleware }}"
+esphome_traefik_middleware_custom: ""
+esphome_traefik_middleware: "{{ esphome_traefik_middleware_default + ','
+                               + esphome_traefik_middleware_custom
+                            if (not esphome_traefik_middleware_custom.startswith(',') and esphome_traefik_middleware_custom | length > 0)
+                            else esphome_traefik_middleware_default
+                               + esphome_traefik_middleware_custom }}"
+
+esphome_traefik_certresolver: "{{ traefik_default_certresolver }}"
+esphome_traefik_enabled: true
+esphome_traefik_api_enabled: true
+esphome_traefik_api_endpoint: "`/auth`,`/settings`,`/flows`,`/flow`,`/nodes`"
+
+################################
+# Docker
+################################
+
+# Container
+esphome_docker_container: "{{ esphome_name }}"
+
+# Image
+esphome_docker_image_pull: true
+esphome_docker_image_repo: "esphome/esphome"
+esphome_docker_image_tag: "latest"
+esphome_docker_image: "{{ lookup('vars', esphome_name + '_docker_image_repo', default=esphome_docker_image_repo)
+                           + ':' + lookup('vars', esphome_name + '_docker_image_tag', default=esphome_docker_image_tag) }}"
+
+# Ports
+esphome_docker_ports_defaults: []
+esphome_docker_ports_custom: []
+esphome_docker_ports: "{{ lookup('vars', esphome_name + '_docker_ports_defaults', default=esphome_docker_ports_defaults)
+                           + lookup('vars', esphome_name + '_docker_ports_custom', default=esphome_docker_ports_custom) }}"
+
+# Envs
+esphome_docker_envs_default:
+  TZ: "{{ tz }}"
+esphome_docker_envs_custom: {}
+esphome_docker_envs: "{{ lookup('vars', esphome_name + '_docker_envs_default', default=esphome_docker_envs_default)
+                          | combine(lookup('vars', esphome_name + '_docker_envs_custom', default=esphome_docker_envs_custom)) }}"
+
+# Commands
+esphome_docker_commands_default: []
+esphome_docker_commands_custom: []
+esphome_docker_commands: "{{ lookup('vars', esphome_name + '_docker_commands_default', default=esphome_docker_commands_default)
+                              + lookup('vars', esphome_name + '_docker_docker_commands_custom', default=esphome_docker_commands_custom) }}"
+
+# Volumes
+esphome_docker_volumes_default:
+  - "{{ esphome_paths_location }}:/data"
+esphome_docker_volumes_custom: []
+esphome_docker_volumes: "{{ lookup('vars', esphome_name + '_docker_volumes_default', default=esphome_docker_volumes_default)
+                             + lookup('vars', esphome_name + '_docker_volumes_custom', default=esphome_docker_volumes_custom) }}"
+
+# Devices
+esphome_docker_devices_default: []
+esphome_docker_devices_custom: []
+esphome_docker_devices: "{{ lookup('vars', esphome_name + '_docker_devices_default', default=esphome_docker_devices_default)
+                             + lookup('vars', esphome_name + '_docker_devices_custom', default=esphome_docker_devices_custom) }}"
+
+# Hosts
+esphome_docker_hosts_default: []
+esphome_docker_hosts_custom: []
+esphome_docker_hosts: "{{ docker_hosts_common
+                           | combine(lookup('vars', esphome_name + '_docker_hosts_default', default=esphome_docker_hosts_default))
+                           | combine(lookup('vars', esphome_name + '_docker_hosts_custom', default=esphome_docker_hosts_custom)) }}"
+
+# Labels
+esphome_docker_labels_default: {}
+esphome_docker_labels_custom: {}
+esphome_docker_labels: "{{ docker_labels_common
+                            | combine(lookup('vars', esphome_name + '_docker_labels_default', default=esphome_docker_labels_default))
+                            | combine(lookup('vars', esphome_name + '_docker_labels_custom', default=esphome_docker_labels_custom)) }}"
+
+# Hostname
+esphome_docker_hostname: "{{ esphome_name }}"
+
+# Networks
+esphome_docker_networks_alias: "{{ esphome_name }}"
+esphome_docker_networks_default: []
+esphome_docker_networks_custom: []
+esphome_docker_networks: "{{ docker_networks_common
+                              + lookup('vars', esphome_name + '_docker_networks_default', default=esphome_docker_networks_default)
+                              + lookup('vars', esphome_name + '_docker_networks_custom', default=esphome_docker_networks_custom) }}"
+
+# Capabilities
+esphome_docker_capabilities_default: []
+esphome_docker_capabilities_custom: []
+esphome_docker_capabilities: "{{ lookup('vars', esphome_name + '_docker_capabilities_default', default=esphome_docker_capabilities_default)
+                                  + lookup('vars', esphome_name + '_docker_capabilities_custom', default=esphome_docker_capabilities_custom) }}"
+
+# Security Opts
+esphome_docker_security_opts_default: []
+esphome_docker_security_opts_custom: []
+esphome_docker_security_opts: "{{ lookup('vars', esphome_name + '_docker_security_opts_default', default=esphome_docker_security_opts_default)
+                                   + lookup('vars', esphome_name + '_docker_security_opts_custom', default=esphome_docker_security_opts_custom) }}"
+
+# Restart Policy
+esphome_docker_restart_policy: unless-stopped
+
+# State
+esphome_docker_state: started
+
+# User
+esphome_docker_user: "{{ uid }}:{{ gid }}"

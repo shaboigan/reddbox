@@ -1,0 +1,16 @@
+#########################################################################
+# Title:         Reddbox: TasmoAdmin Role                               #
+# Author(s):     shaboigan                                              #
+# URL:           https://github.com/shaboigan/Reddbox                   #
+# --                                                                    #
+#########################################################################
+#                   GNU General Public License v3.0                     #
+#########################################################################
+---
+- name: "Execute TasmoAdmin roles"
+  ansible.builtin.include_tasks: main2.yml
+  vars:
+    tasmoadmin_name: "{{ role }}"
+  with_items: "{{ tasmoadmin_instances }}"
+  loop_control:
+    loop_var: role

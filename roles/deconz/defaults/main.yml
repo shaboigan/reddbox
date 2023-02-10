@@ -1,0 +1,171 @@
+##########################################################################
+# Title:         Reddbox: WIP | Default Variables                     #
+# Author(s):     shaboigan                                               #
+# URL:           https://github.com/shaboigan/Reddbox                    #
+# --                                                                     #
+##########################################################################
+#                   GNU General Public License v3.0                      #
+##########################################################################
+---
+################################
+# Basics
+################################
+
+deconz_instances: ["deconz"]
+
+################################
+# Paths
+################################
+
+deconz_paths_folder: "{{ deconz_name }}"
+deconz_paths_location: "{{ server_appdata_path }}/{{ deconz_paths_folder }}"
+deconz_paths_folders_list:
+  - "{{ deconz_paths_location }}"
+
+################################
+# Web
+################################
+
+deconz_web_subdomain: "{{ deconz_name }}"
+deconz_web_domain: "{{ user.domain }}"
+deconz_web_port: "8080"
+deconz_web_url: "{{ 'https://' + lookup('vars', deconz_name + '_web_subdomain', default=deconz_web_subdomain)
+                      + '.' + lookup('vars', deconz_name + '_web_domain', default=deconz_web_domain) }}"
+
+################################
+# DNS
+################################
+
+deconz_dns_record: "{{ lookup('vars', deconz_name + '_web_subdomain', default=deconz_web_subdomain) }}"
+deconz_dns_zone: "{{ lookup('vars', deconz_name + '_web_domain', default=deconz_web_domain) }}"
+deconz_dns_proxy: "{{ dns.proxied }}"
+
+################################
+# Traefik
+################################
+
+deconz_traefik_sso_middleware: "{{ traefik_default_sso_middleware }}"
+
+deconz_traefik_middleware_default: "{{ traefik_default_middleware + ','
+                                       + lookup('vars', deconz_name + '_traefik_sso_middleware', default=deconz_traefik_sso_middleware)
+                                    if (lookup('vars', deconz_name + '_traefik_sso_middleware', default=deconz_traefik_sso_middleware) | length > 0)
+                                    else traefik_default_middleware }}"
+deconz_traefik_middleware_custom: ""
+deconz_traefik_middleware: "{{ deconz_traefik_middleware_default + ','
+                               + deconz_traefik_middleware_custom
+                            if (not deconz_traefik_middleware_custom.startswith(',') and deconz_traefik_middleware_custom | length > 0)
+                            else deconz_traefik_middleware_default
+                               + deconz_traefik_middleware_custom }}"
+
+deconz_traefik_certresolver: "{{ traefik_default_certresolver }}"
+deconz_traefik_enabled: true
+deconz_traefik_api_enabled: true
+deconz_traefik_api_endpoint: "`/auth`,`/settings`,`/flows`,`/flow`,`/nodes`"
+
+################################
+# Docker
+################################
+
+# Container
+deconz_docker_container: "{{ deconz_name }}"
+
+# Image
+deconz_docker_image_pull: true
+deconz_docker_image_repo: "deconzcommunity/deconz"
+deconz_docker_image_tag: "latest"
+deconz_docker_image: "{{ lookup('vars', deconz_name + '_docker_image_repo', default=deconz_docker_image_repo)
+                           + ':' + lookup('vars', deconz_name + '_docker_image_tag', default=deconz_docker_image_tag) }}"
+
+# Ports
+deconz_websocket_port: "4443"
+deconz_vnc_port: "5900"
+deconz_docker_ports_defaults: []
+deconz_docker_ports_custom: []
+deconz_docker_ports: "{{ lookup('vars', deconz_name + '_docker_ports_defaults', default=deconz_docker_ports_defaults)
+                           + lookup('vars', deconz_name + '_docker_ports_custom', default=deconz_docker_ports_custom) }}"
+
+################################
+# Settings
+################################
+
+# Envs
+deconz_docker_envs_default:
+  TZ: "{{ tz }}"
+  DECONZ_WS_PORT: "{{ deconz_websocket_port }}"
+  DECONZ_WEB_PORT: "{{ deconz_web_port }}"
+  DECONZ_VNC_PORT: "{{ deconz_vnc_port }}"
+  DECONZ_VNC_MODE: 1
+  DECONZ_UPNP: 0
+  DEBUG_INFO: 1
+  DEBUG_APS: 0
+  DEBUG_ZCL: 0
+  DEBUG_ZDP: 0
+  DEBUG_OTAU: 0
+deconz_docker_envs_custom: {}
+deconz_docker_envs: "{{ lookup('vars', deconz_name + '_docker_envs_default', default=deconz_docker_envs_default)
+                          | combine(lookup('vars', deconz_name + '_docker_envs_custom', default=deconz_docker_envs_custom)) }}"
+
+# Commands
+deconz_docker_commands_default: []
+deconz_docker_commands_custom: []
+deconz_docker_commands: "{{ lookup('vars', deconz_name + '_docker_commands_default', default=deconz_docker_commands_default)
+                              + lookup('vars', deconz_name + '_docker_docker_commands_custom', default=deconz_docker_commands_custom) }}"
+
+# Volumes
+deconz_docker_volumes_default:
+  - "{{ deconz_paths_location }}:/data"
+deconz_docker_volumes_custom: []
+deconz_docker_volumes: "{{ lookup('vars', deconz_name + '_docker_volumes_default', default=deconz_docker_volumes_default)
+                             + lookup('vars', deconz_name + '_docker_volumes_custom', default=deconz_docker_volumes_custom) }}"
+
+# Devices
+deconz_docker_devices_default: []
+deconz_docker_devices_custom: []
+deconz_docker_devices: "{{ lookup('vars', deconz_name + '_docker_devices_default', default=deconz_docker_devices_default)
+                             + lookup('vars', deconz_name + '_docker_devices_custom', default=deconz_docker_devices_custom) }}"
+
+# Hosts
+deconz_docker_hosts_default: []
+deconz_docker_hosts_custom: []
+deconz_docker_hosts: "{{ docker_hosts_common
+                           | combine(lookup('vars', deconz_name + '_docker_hosts_default', default=deconz_docker_hosts_default))
+                           | combine(lookup('vars', deconz_name + '_docker_hosts_custom', default=deconz_docker_hosts_custom)) }}"
+
+# Labels
+deconz_docker_labels_default: {}
+deconz_docker_labels_custom: {}
+deconz_docker_labels: "{{ docker_labels_common
+                            | combine(lookup('vars', deconz_name + '_docker_labels_default', default=deconz_docker_labels_default))
+                            | combine(lookup('vars', deconz_name + '_docker_labels_custom', default=deconz_docker_labels_custom)) }}"
+
+# Hostname
+deconz_docker_hostname: "{{ deconz_name }}"
+
+# Networks
+deconz_docker_networks_alias: "{{ deconz_name }}"
+deconz_docker_networks_default: []
+deconz_docker_networks_custom: []
+deconz_docker_networks: "{{ docker_networks_common
+                              + lookup('vars', deconz_name + '_docker_networks_default', default=deconz_docker_networks_default)
+                              + lookup('vars', deconz_name + '_docker_networks_custom', default=deconz_docker_networks_custom) }}"
+
+# Capabilities
+deconz_docker_capabilities_default: []
+deconz_docker_capabilities_custom: []
+deconz_docker_capabilities: "{{ lookup('vars', deconz_name + '_docker_capabilities_default', default=deconz_docker_capabilities_default)
+                                  + lookup('vars', deconz_name + '_docker_capabilities_custom', default=deconz_docker_capabilities_custom) }}"
+
+# Security Opts
+deconz_docker_security_opts_default: []
+deconz_docker_security_opts_custom: []
+deconz_docker_security_opts: "{{ lookup('vars', deconz_name + '_docker_security_opts_default', default=deconz_docker_security_opts_default)
+                                   + lookup('vars', deconz_name + '_docker_security_opts_custom', default=deconz_docker_security_opts_custom) }}"
+
+# Restart Policy
+deconz_docker_restart_policy: unless-stopped
+
+# State
+deconz_docker_state: started
+
+# User
+deconz_docker_user: "{{ uid }}:{{ gid }}"

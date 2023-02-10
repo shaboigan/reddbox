@@ -1,0 +1,17 @@
+#########################################################################
+# Title:         Reddbox: Kernel | Preinstall Tasks                     #
+# Author(s):     desimaniac                                             #
+# URL:           https://github.com/shaboigan/Reddbox                    #
+# --                                                                    #
+#########################################################################
+#                   GNU General Public License v3.0                     #
+#########################################################################
+---
+- name: "Preinstall | Reddbox pre-install has started!"
+  ansible.builtin.debug:
+    msg: "Reddbox pre-install has started!"
+
+- name: Preinstall | Set default preinstall variables
+  ansible.builtin.set_fact:
+    preinstall_kernel_restart: false
+    preinstall_user_relogin: false

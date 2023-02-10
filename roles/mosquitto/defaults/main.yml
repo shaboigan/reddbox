@@ -1,0 +1,119 @@
+##########################################################################
+# Title:            Reddbox: mosquitto | Default Variables                    #
+# Author(s):        CHAIR/Raneydazed                                     #
+# URL:              https://github.com/shaboigan/Reddbox                  #
+# --                                                                     #
+##########################################################################
+#                   GNU General Public License v3.0                      #
+##########################################################################
+---
+################################
+# Basics
+################################
+
+mosquitto_name: mosquitto
+
+################################
+# Paths
+################################
+
+mosquitto_paths_folder: "{{ mosquitto_name }}"
+mosquitto_paths_location: "{{ server_appdata_path }}/{{ mosquitto_paths_folder }}"
+mosquitto_paths_config_location: "{{ mosquitto_paths_location }}/config/mosquitto.conf"
+mosquitto_paths_folders_list:
+  - "{{ mosquitto_paths_location }}/config"
+  - "{{ mosquitto_paths_location }}/data"
+  - "{{ mosquitto_paths_location }}/log"
+
+################################
+# Docker
+################################
+
+# Container
+mosquitto_docker_container: "{{ mosquitto_name }}"
+
+# Image
+mosquitto_docker_image_pull: true
+mosquitto_docker_image_tag: "latest"
+mosquitto_docker_image: "eclipse-mosquitto:{{ mosquitto_docker_image_tag }}"
+
+# Ports
+mosquitto_docker_ports_defaults:
+  - "1883"
+  - "9001"
+
+mosquitto_docker_ports: "{{ mosquitto_docker_ports_defaults }}"
+
+# Envs
+mosquitto_docker_envs_default:
+  TZ: "{{ tz }}"
+  PUID: "{{ uid }}"
+  PGID: "{{ gid }}"
+mosquitto_docker_envs_custom: {}
+mosquitto_docker_envs: "{{ mosquitto_docker_envs_default
+                      | combine(mosquitto_docker_envs_custom) }}"
+
+# Commands
+mosquitto_docker_commands_default: []
+mosquitto_docker_commands_custom: []
+mosquitto_docker_commands: "{{ mosquitto_docker_commands_default
+                          + mosquitto_docker_commands_custom }}"
+
+# Volumes
+mosquitto_docker_volumes_default:
+  - "{{ mosquitto_paths_location }}/config:/mosquitto/config"
+  - "{{ mosquitto_paths_location }}/data:/mosquitto/data"
+  - "{{ mosquitto_paths_location }}/log:/mosquitto/log"
+  - /etc/localtime:/etc/localtime:ro
+mosquitto_docker_volumes_custom: []
+mosquitto_docker_volumes: "{{ mosquitto_docker_volumes_default
+                         + mosquitto_docker_volumes_custom }}"
+
+# Devices
+mosquitto_docker_devices_default: []
+mosquitto_docker_devices_custom: []
+mosquitto_docker_devices: "{{ mosquitto_docker_devices_default
+                         + mosquitto_docker_devices_custom }}"
+
+# Hosts
+mosquitto_docker_hosts_default: []
+mosquitto_docker_hosts_custom: []
+mosquitto_docker_hosts: "{{ docker_hosts_common
+                       | combine(mosquitto_docker_hosts_default)
+                       | combine(mosquitto_docker_hosts_custom) }}"
+
+# Labels
+mosquitto_docker_labels_default: {}
+mosquitto_docker_labels_custom: {}
+mosquitto_docker_labels: "{{ docker_labels_common
+                        | combine(mosquitto_docker_labels_default)
+                        | combine(mosquitto_docker_labels_custom) }}"
+
+# Hostname
+mosquitto_docker_hostname: "{{ mosquitto_name }}"
+
+# Networks
+mosquitto_docker_networks_alias: "{{ mosquitto_name }}"
+mosquitto_docker_networks_default: []
+mosquitto_docker_networks_custom: []
+mosquitto_docker_networks: "{{ docker_networks_common
+                          + mosquitto_docker_networks_default
+                          + mosquitto_docker_networks_custom }}"
+
+# Capabilities
+mosquitto_docker_capabilities_default: []
+mosquitto_docker_capabilities_custom: []
+mosquitto_docker_capabilities: "{{ mosquitto_docker_capabilities_default
+                              + mosquitto_docker_capabilities_custom }}"
+
+# Security Opts
+mosquitto_docker_security_opts_default: []
+mosquitto_docker_security_opts_custom: []
+mosquitto_docker_security_opts: "{{ mosquitto_docker_security_opts_default
+                               + mosquitto_docker_security_opts_custom }}"
+
+# Restart Policy
+mosquitto_docker_restart_policy: unless-stopped
+
+# State
+mosquitto_docker_state: started

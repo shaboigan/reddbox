@@ -1,0 +1,74 @@
+---
+- hosts: localhost
+  module_defaults:
+    ansible.builtin.setup:
+      fact_path: "/srv/git/reddbox/ansible_facts.d"
+  vars_files:
+    - ['accounts.yml', 'defaults/accounts.yml.default']
+    - ['settings.yml', 'defaults/settings.yml.default']
+    - ['adv_settings.yml', 'defaults/adv_settings.yml.default']
+    - ['backup_config.yml', 'defaults/backup_config.yml.default']
+    - ['providers.yml', 'defaults/providers.yml.default']
+  roles:
+    - { role: settings, tags: ['settings'] }
+    - { role: pre_tasks, tags: ['always', 'pre_tasks'] }
+    - { role: sanity_check, tags: ['sanity_check'] }
+    - { role: backup, tags: ['backup'] }
+    - { role: backup2, tags: ['backup2'] }
+    - { role: restore, tags: ['restore'] }
+    # Core
+    - { role: kernel, tags: ['core', 'reddbox', 'mediabox', 'feederbox', 'preinstall', 'kernel'] }
+    - { role: user, tags: ['core', 'reddbox', 'mediabox', 'feederbox', 'preinstall', 'user'] }
+    - { role: shell, tags: ['core', 'reddbox', 'mediabox', 'feederbox', 'preinstall', 'shell'] }
+    - { role: rclone, tags: ['core', 'reddbox', 'mediabox', 'feederbox', 'preinstall', 'rclone'] }
+    - { role: system, tags: ['core', 'reddbox', 'mediabox', 'feederbox', 'system'] }
+    - { role: common, tags: ['core', 'reddbox', 'mediabox', 'feederbox', 'common'] }
+    - { role: docker, tags: ['core', 'reddbox', 'mediabox', 'feederbox', 'docker'] }
+    - { role: remote, tags: ['core', 'reddbox', 'mediabox', 'feederbox', 'mounts', 'mounts_override'], when: ['use_remote'] }
+    - { role: unionfs, tags: ['core', 'reddbox', 'mediabox', 'feederbox', 'mounts', 'mounts_override'] }
+    - { role: scripts, tags: ['core', 'reddbox', 'mediabox', 'feederbox', 'scripts'] }
+    - { role: traefik, tags: ['core', 'reddbox', 'mediabox', 'feederbox', 'traefik', 'traefik_reset_certs'] }
+    - { role: cloudflare, tags: ['core', 'reddbox', 'mediabox', 'feederbox', 'cloudflare'], when: ['cloudflare_is_enabled'] }
+    # Apps Start
+    - { role: media_server, tags: ['mediabox', 'media-server'] }
+    - { role: cloudplow, tags: ['reddbox', 'feederbox', 'cloudplow'], when: ['use_remote'] }
+    - { role: iperf3, tags: ['reddbox', 'mediabox', 'feederbox', 'iperf3'] }
+    - { role: nethogs, tags: ['reddbox', 'mediabox', 'feederbox', 'nethogs'] }
+    - { role: grafana, tags: ['grafana'] }
+    - { role: homeassistant, tags: ['homeassistant'] }
+    - { role: influxdb, tags: ['influxdb'] }
+    - { role: mosquitto, tags: [mosquitto'] }
+    - { role: node_red, tags: ['node_red'] }
+    - { role: authelia, tags: ['authelia', 'authelia-reset'] }
+    - { role: autoheal, tags: ['autoheal'] }
+    - { role: autoscan, tags: ['autoscan'] }
+    - { role: btrfsmaintenance, tags: ['btrfsmaintenance'] }
+    - { role: cadvisor, tags: ['cadvisor'] }
+    - { role: ddclient, tags: ['ddclient'] }
+    - { role: deconz, tags: ['deconz'] }
+    - { role: diun, tags: ['diun'] }
+    - { role: esphome, tags: ['esphome'] }
+    - { role: jellyfin, tags: ['jellyfin'] }
+    - { role: homebox, tags: ['homebox'] }
+    - { role: mainline, tags: ['mainline'] }
+    - { role: netdata, tags: ['netdata'] }
+    - { role: node_exporter, tags: ['node_exporter'] }
+    - { role: pihole, tags: ['pihole'] }
+    - { role: plex, tags: ['plex', 'plex-reset-codecs'] }
+    - { role: plex_db, tags: ['plex-db'] }
+    - { role: postgres, tags: ['postgres'] }
+    - { role: prometheus, tags: ['prometheus'] }
+    - { role: python, tags: ['python'] }
+    - { role: redis, tags: ['redis'] }    
+    - { role: sabnzbd, tags: ['sabnzbd'] }
+    - { role: subliminal, tags: ['subliminal'] }
+    - { role: tasmoadmin, tags: ['tasmoadmin'] }
+    - { role: transfer, tags: ['transfer'] }
+    - { role: vaultwarden, tags: ['vaultwarden'] }
+    - { role: yyq, tags: ['yyq'] }
+    # Apps End
+    - { role: custom, tags: ['custom'] }
+    - { role: plex_auth_token, tags: ['plex_auth_token'] }
+    - { role: plex_extra_tasks, tags: ['plex-extra-tasks'] }
+    - { role: sub_zero, tags: ['plex-plugins-sub-zero', 'plex-plugins-sub-zero-reinstall'] }
+    - { role: webtools, tags: ['plex-plugins-webtools', 'plex-plugins-webtools-reinstall'] }

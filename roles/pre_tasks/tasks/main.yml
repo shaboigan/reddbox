@@ -1,0 +1,18 @@
+#########################################################################
+# Title:         Reddbox: Pre-Tasks                                     #
+# Author(s):     desimaniac                                             #
+# URL:           https://github.com/shaboigan/Reddbox                    #
+# --                                                                    #
+#########################################################################
+#                   GNU General Public License v3.0                     #
+#########################################################################
+---
+- name: APT Tasks
+  ansible.builtin.import_tasks: "subtasks/apt.yml"
+
+- name: Git Tasks
+  ansible.builtin.import_tasks: "subtasks/git.yml"
+
+- name: Variables Tasks
+  ansible.builtin.include_tasks: "subtasks/variables.yml"
+  when: (playbook_dir != "/srv/git/reddbox" and not continuous_integration) or (playbook_dir != "/home/runner/work/Reddbox/Reddbox" and continuous_integration)

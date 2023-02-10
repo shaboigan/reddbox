@@ -1,0 +1,16 @@
+#########################################################################
+# Title:         Reddbox: deConz Role                                   #
+# Author(s):     shaboigan                                              #
+# URL:           https://github.com/shaboigan/Reddbox                   #
+# --                                                                    #
+#########################################################################
+#                   GNU General Public License v3.0                     #
+#########################################################################
+---
+- name: "Execute deConz roles"
+  ansible.builtin.include_tasks: main2.yml
+  vars:
+    deconz_name: "{{ role }}"
+  with_items: "{{ deconz_instances }}"
+  loop_control:
+    loop_var: role

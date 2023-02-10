@@ -1,0 +1,28 @@
+#########################################################################
+# Title:         Reddbox: Cloudflare | Subdomains | Remove Subdomain    #
+# Author(s):     desimaniac, salty                                      #
+# URL:           https://github.com/shaboigan/Reddbox                    #
+# --                                                                    #
+#########################################################################
+#                   GNU General Public License v3.0                     #
+#########################################################################
+---
+- name: "Subdomains | Remove Subdomain | Cloudflare: Remove 'reddbox' A record from '{{ fld.stdout }}'"
+  community.general.cloudflare_dns:
+    account_api_token: "{{ cloudflare.api }}"
+    account_email: "{{ cloudflare.email }}"
+    zone: "{{ fld.stdout }}"
+    state: absent
+    type: A
+    record: "reddbox"
+  when: dns.ipv4
+
+- name: "Subdomains | Remove Subdomain | Cloudflare: Remove 'reddbox' AAAA record from '{{ fld.stdout }}'"
+  community.general.cloudflare_dns:
+    account_api_token: "{{ cloudflare.api }}"
+    account_email: "{{ cloudflare.email }}"
+    zone: "{{ fld.stdout }}"
+    state: absent
+    type: AAAA
+    record: "reddbox"
+  when: dns.ipv6

@@ -1,0 +1,11 @@
+#########################################################################
+# Title:         Reddbox: User Role                                     #
+# Author(s):     desimaniac                                             #
+# URL:           https://github.com/shaboigan/Reddbox                    #
+# --                                                                    #
+#########################################################################
+#                   GNU General Public License v3.0                     #
+#########################################################################
+---
+- name: User Account
+  ansible.builtin.import_tasks: "subtasks/user_account.yml"
