@@ -62,10 +62,10 @@
     state: present
     update_cache: true
   with_items:
-    - 'deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }} multiverse'
-    - 'deb-src http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }} multiverse'
-    - 'deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }}-updates multiverse'
-    - 'deb-src http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }}-updates multiverse'
+    - 'deb http://archive.ubuntu.com/ubuntu ubuntu multiverse'
+    - 'deb-src http://archive.ubuntu.com/ubuntu ubuntu multiverse'
+    - 'deb http://archive.ubuntu.com/ubuntu ubuntu-updates multiverse'
+    - 'deb-src http://archive.ubuntu.com/ubuntu ubuntu-updates multiverse'
   when: (ansible_distribution == 'Debian') and (not continuous_integration)
 
 - name: Install common packages
