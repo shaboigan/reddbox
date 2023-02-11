@@ -63,7 +63,6 @@
     - { role: sabnzbd, tags: ['sabnzbd'] }
     - { role: subliminal, tags: ['subliminal'] }
     - { role: tasmoadmin, tags: ['tasmoadmin'] }
-    - { role: transfer, tags: ['transfer'] }
     - { role: vaultwarden, tags: ['vaultwarden'] }
     - { role: yyq, tags: ['yyq'] }
     # Apps End
