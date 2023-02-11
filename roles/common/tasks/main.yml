@@ -56,17 +56,17 @@
       - ca-certificates
       - software-properties-common
 
-- name: Add Ubuntu repositories
-  ansible.builtin.apt_repository:
-    repo: "{{ item }}"
-    state: present
-    update_cache: true
-  with_items:
-    - 'deb http://archive.ubuntu.com/ubuntu ubuntu multiverse'
-    - 'deb-src http://archive.ubuntu.com/ubuntu ubuntu multiverse'
-    - 'deb http://archive.ubuntu.com/ubuntu ubuntu-updates multiverse'
-    - 'deb-src http://archive.ubuntu.com/ubuntu ubuntu-updates multiverse'
-  when: (ansible_distribution == 'Debian') and (not continuous_integration)
+#- name: Add Ubuntu repositories
+#  ansible.builtin.apt_repository:
+#    repo: "{{ item }}"
+#    state: present
+#    update_cache: true
+#  with_items:
+#    - 'deb http://archive.ubuntu.com/ubuntu ubuntu multiverse'
+#    - 'deb-src http://archive.ubuntu.com/ubuntu ubuntu multiverse'
+#    - 'deb http://archive.ubuntu.com/ubuntu ubuntu-updates multiverse'
+#    - 'deb-src http://archive.ubuntu.com/ubuntu ubuntu-updates multiverse'
+#  when: (ansible_distribution == 'Debian') and (not continuous_integration)
 
 - name: Install common packages
   ansible.builtin.apt:
