@@ -31,7 +31,7 @@
     - { role: cloudflare, tags: ['core', 'reddbox', 'mediabox', 'feederbox', 'cloudflare'], when: ['cloudflare_is_enabled'] }
     # Apps Start
     - { role: media_server, tags: ['mediabox', 'media-server'] }
-    - { role: cloudplow, tags: ['reddbox', 'feederbox', 'cloudplow'], when: ['use_remote'] }
+    - { role: cloudplow, tags: ['cloudplow'], when: ['use_remote'] }
     - { role: iperf3, tags: ['reddbox', 'mediabox', 'feederbox', 'iperf3'] }
     - { role: nethogs, tags: ['reddbox', 'mediabox', 'feederbox', 'nethogs'] }
     - { role: grafana, tags: ['grafana'] }
@@ -58,7 +58,6 @@
     - { role: plex_db, tags: ['plex-db'] }
     - { role: postgres, tags: ['postgres'] }
     - { role: prometheus, tags: ['prometheus'] }
-    - { role: python, tags: ['python'] }
     - { role: redis, tags: ['redis'] }    
     - { role: sabnzbd, tags: ['sabnzbd'] }
     - { role: subliminal, tags: ['subliminal'] }
