@@ -34,6 +34,9 @@
   delay: 10
   until: result is succeeded
 
+- name: Binary | Install Docker
+  ansible.builtin.shell: "curl -fsSL https://get.docker.com -o get-docker.sh"
+
 - name: Binary | Install Docker binaries
   ansible.builtin.include_tasks: "binary2.yml"
   loop:
