@@ -31,7 +31,7 @@ mergerfs_release_distribution: "{{ ansible_distribution_release | lower }}"
 
 mergerfs_release_lookup_command: |
   curl -s {{ mergerfs_releases_url }} \
-    | jq -r ".assets[] | select(.name | test(\"{{ ansible_distribution | lower }}-{{ mergerfs_release_distribution }}_arm64\")) \
+    | jq -r ".assets[] | select(.name | test(\"{{ ansible_distribution | lower }}-{{ mergerfs_release_distribution }}_aarch64\")) \
     | .browser_download_url"
 
 mergerfs_download_backup_version: 2.33.5
