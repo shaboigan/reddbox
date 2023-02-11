@@ -37,9 +37,9 @@
 - name: Binary | Install Docker
   ansible.builtin.shell: "curl -fsSL https://get.docker.com -o get-docker.sh"
 
-- name: Binary | Install Docker binaries
-  ansible.builtin.include_tasks: "binary2.yml"
-  loop:
-    - 'containerd_io'
-    - 'docker_ce'
-    - 'docker_ce_cli'
+#- name: Binary | Install Docker binaries
+#  ansible.builtin.include_tasks: "binary2.yml"
+#  loop:
+#    - 'containerd_io'
+#    - 'docker_ce'
+#    - 'docker_ce_cli'
