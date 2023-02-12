@@ -34,6 +34,7 @@
     - { role: cloudplow, tags: ['cloudplow'], when: ['use_remote'] }
     - { role: iperf3, tags: ['reddbox', 'mediabox', 'feederbox', 'iperf3'] }
     - { role: nethogs, tags: ['reddbox', 'mediabox', 'feederbox', 'nethogs'] }
+    - { role: cloudflared, tags: ['cloudflared'] }
     - { role: grafana, tags: ['grafana'] }
     - { role: homeassistant, tags: ['homeassistant'] }
     - { role: influxdb, tags: ['influxdb'] }

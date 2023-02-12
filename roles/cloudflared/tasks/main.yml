@@ -10,7 +10,7 @@
 - name: "Execute Cloudfalred roles"
   ansible.builtin.include_tasks: main2.yml
   vars:
-    node_red_name: "{{ role }}"
-  with_items: "{{ Cloudflared_instances }}"
+    cloudflared_name: "{{ role }}"
+  with_items: "{{ cloudflared_instances }}"
   loop_control:
     loop_var: role

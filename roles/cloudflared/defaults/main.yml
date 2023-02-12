@@ -36,8 +36,8 @@ cloudflared_paths_folders_list:
 # DNS
 ################################
 
-cloudflared_dns_record: "{{ lookup('vars', cloudflared_name + '_web_subdomain', default=cloudflared_web_subdomain) }}"
-cloudflared_dns_zone: "{{ lookup('vars', cloudflared_name + '_web_domain', default=cloudflared_web_domain) }}"
+#cloudflared_dns_record: "{{ lookup('vars', cloudflared_name + '_web_subdomain', default=cloudflared_web_subdomain) }}"
+#cloudflared_dns_zone: "{{ lookup('vars', cloudflared_name + '_web_domain', default=cloudflared_web_domain) }}"
 cloudflared_dns_proxy: "{{ dns.proxied }}"
 
 ################################
