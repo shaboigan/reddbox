@@ -26,18 +26,18 @@ cloudflared_paths_folders_list:
 # Web
 ################################
 
-#cloudflared_web_subdomain: "{{ cloudflared_name }}"
-#cloudflared_web_domain: "{{ user.domain }}"
+cloudflared_web_subdomain: "{{ cloudflared_name }}"
+cloudflared_web_domain: "{{ user.domain }}"
 #cloudflared_web_port: "1880"
-#cloudflared_web_url: "{{ 'https://' + lookup('vars', cloudflared_name + '_web_subdomain', default=cloudflared_web_subdomain)
-#                      + '.' + lookup('vars', cloudflared_name + '_web_domain', default=cloudflared_web_domain) }}"
+cloudflared_web_url: "{{ 'https://' + lookup('vars', cloudflared_name + '_web_subdomain', default=cloudflared_web_subdomain)
+                      + '.' + lookup('vars', cloudflared_name + '_web_domain', default=cloudflared_web_domain) }}"
 
 ################################
 # DNS
 ################################
 
-#cloudflared_dns_record: "{{ lookup('vars', cloudflared_name + '_web_subdomain', default=cloudflared_web_subdomain) }}"
-#cloudflared_dns_zone: "{{ lookup('vars', cloudflared_name + '_web_domain', default=cloudflared_web_domain) }}"
+cloudflared_dns_record: "{{ lookup('vars', cloudflared_name + '_web_subdomain', default=cloudflared_web_subdomain) }}"
+cloudflared_dns_zone: "{{ lookup('vars', cloudflared_name + '_web_domain', default=cloudflared_web_domain) }}"
 cloudflared_dns_proxy: "{{ dns.proxied }}"
 
 ################################
