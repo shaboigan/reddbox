@@ -85,12 +85,13 @@ cloudflared_docker_image: "{{ lookup('vars', cloudflared_name + '_docker_image_r
 # Envs
 cloudflared_docker_envs_default:
   TZ: "{{ tz }}"
+  TUNNEL_TOKEN: "{{ cloudflared.token "
 cloudflared_docker_envs_custom: {}
 cloudflared_docker_envs: "{{ lookup('vars', cloudflared_name + '_docker_envs_default', default=cloudflared_docker_envs_default)
                           | combine(lookup('vars', cloudflared_name + '_docker_envs_custom', default=cloudflared_docker_envs_custom)) }}"
 
 # Commands
-cloudflared_docker_commands_default: []
+cloudflared_docker_commands_default: "tunnel run"
 cloudflared_docker_commands_custom: []
 cloudflared_docker_commands: "{{ lookup('vars', cloudflared_name + '_docker_commands_default', default=cloudflared_docker_commands_default)
                               + lookup('vars', cloudflared_name + '_docker_docker_commands_custom', default=cloudflared_docker_commands_custom) }}"

@@ -9,6 +9,8 @@ dns:
   ipv4: yes
   ipv6: no
   zerossl: no
+cloudflared:
+  token: 
 traefik:
   tls: no
   http: no
