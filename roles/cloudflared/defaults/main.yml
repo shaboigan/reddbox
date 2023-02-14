@@ -90,8 +90,7 @@ cloudflared_docker_envs: "{{ lookup('vars', cloudflared_name + '_docker_envs_def
                           | combine(lookup('vars', cloudflared_name + '_docker_envs_custom', default=cloudflared_docker_envs_custom)) }}"
 
 # Commands
-cloudflared_docker_commands_default: 
-  - "tunnel --no-autoupdate run --token {{ cloudflared.token }}"
+cloudflared_docker_commands_default: "tunnel --no-autoupdate run --token {{ cloudflared.token }}"
 cloudflared_docker_commands_custom: []
 cloudflared_docker_commands: "{{ lookup('vars', cloudflared_name + '_docker_commands_default', default=cloudflared_docker_commands_default)
                               + lookup('vars', cloudflared_name + '_docker_docker_commands_custom', default=cloudflared_docker_commands_custom) }}"

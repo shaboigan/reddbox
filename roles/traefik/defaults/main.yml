@@ -131,8 +131,9 @@ traefik_docker_image: "traefik:{{ traefik_docker_image_tag }}"
 
 # Ports
 traefik_docker_ports_defaults:
+  - "9876:8080/tcp"
   - "80:80/tcp"
-  - "443:443/tcp"
+  - "4443:443/tcp"
 traefik_docker_ports_custom: []
 traefik_docker_ports: "{{ traefik_docker_ports_defaults
                           + traefik_docker_ports_custom }}"
