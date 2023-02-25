@@ -11,7 +11,7 @@
 # Basics
 ################################
 
-nginx_proxy_manager_instances: ["node-red"]
+nginx_proxy_manager_instances: ["nginx_proxy_manager"]
 
 ################################
 # Paths
@@ -71,7 +71,7 @@ nginx_proxy_manager_docker_container: "{{ nginx_proxy_manager_name }}"
 
 # Image
 nginx_proxy_manager_docker_image_pull: true
-nginx_proxy_manager_docker_image_repo: "nodered/node-red"
+nginx_proxy_manager_docker_image_repo: "jc21/nginx-proxy-manager"
 nginx_proxy_manager_docker_image_tag: "latest"
 nginx_proxy_manager_docker_image: "{{ lookup('vars', nginx_proxy_manager_name + '_docker_image_repo', default=nginx_proxy_manager_docker_image_repo)
                            + ':' + lookup('vars', nginx_proxy_manager_name + '_docker_image_tag', default=nginx_proxy_manager_docker_image_tag) }}"
