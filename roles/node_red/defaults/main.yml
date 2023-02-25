@@ -58,8 +58,8 @@ node_red_traefik_middleware: "{{ node_red_traefik_middleware_default + ','
                                + node_red_traefik_middleware_custom }}"
 
 node_red_traefik_certresolver: "{{ traefik_default_certresolver }}"
-node_red_traefik_enabled: true
-node_red_traefik_api_enabled: true
+node_red_traefik_enabled: false
+node_red_traefik_api_enabled: false
 node_red_traefik_api_endpoint: "`/auth`,`/settings`,`/flows`,`/flow`,`/nodes`"
 
 ################################

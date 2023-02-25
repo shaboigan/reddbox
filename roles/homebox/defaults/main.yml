@@ -55,7 +55,7 @@ homebox_traefik_middleware: "{{ homebox_traefik_middleware_default + ','
                              else homebox_traefik_middleware_default
                                 + homebox_traefik_middleware_custom }}"
 homebox_traefik_certresolver: "{{ traefik_default_certresolver }}"
-homebox_traefik_enabled: true
+homebox_traefik_enabled: false
 
 ################################
 # Docker

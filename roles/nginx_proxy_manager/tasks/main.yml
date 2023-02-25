@@ -1,5 +1,5 @@
 #########################################################################
-# Title:         Reddbox: Pi-hole Role                                 #
+# Title:         Reddbox: Node-RED Role                                 #
 # Author(s):     salty                                                  #
 # URL:           https://github.com/shaboigan/Reddbox                    #
 # --                                                                    #
@@ -7,10 +7,10 @@
 #                   GNU General Public License v3.0                     #
 #########################################################################
 ---
-- name: "Execute Pi-hole roles"
+- name: "Execute Node-RED roles"
   ansible.builtin.include_tasks: main2.yml
   vars:
-    pihole_name: "{{ role }}"
-  with_items: "{{ pihole_instances }}"
+    node_red_name: "{{ role }}"
+  with_items: "{{ node_red_instances }}"
   loop_control:
     loop_var: role

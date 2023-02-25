@@ -56,7 +56,7 @@ jaeger_traefik_middleware: "{{ jaeger_traefik_middleware_default + ','
                             else jaeger_traefik_middleware_default
                                + jaeger_traefik_middleware_custom }}"
 jaeger_traefik_certresolver: "{{ traefik_default_certresolver }}"
-jaeger_traefik_enabled: true
+jaeger_traefik_enabled: false
 
 ################################
 # Docker

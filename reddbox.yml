@@ -27,8 +27,9 @@
     - { role: remote, tags: ['core', 'reddbox', 'mediabox', 'feederbox', 'mounts', 'mounts_override'], when: ['use_remote'] }
     - { role: unionfs, tags: ['core', 'reddbox', 'mediabox', 'feederbox', 'mounts', 'mounts_override'] }
     - { role: scripts, tags: ['core', 'reddbox', 'mediabox', 'feederbox', 'scripts'] }
-    - { role: traefik, tags: ['core', 'reddbox', 'mediabox', 'feederbox', 'traefik', 'traefik_reset_certs'] }
-    - { role: cloudflare, tags: ['core', 'reddbox', 'mediabox', 'feederbox', 'cloudflare'], when: ['cloudflare_is_enabled'] }
+    #- { role: traefik, tags: ['core', 'reddbox', 'mediabox', 'feederbox', 'traefik', 'traefik_reset_certs'] }
+    - { role: nginx_proxy_manager, tags: ['core', 'reddbox', 'mediabox', 'feederbox', 'nginx_proxy_manager'] }
+    #- { role: cloudflare, tags: ['core', 'reddbox', 'mediabox', 'feederbox', 'cloudflare'], when: ['cloudflare_is_enabled'] }
     # Apps Start
     - { role: media_server, tags: ['mediabox', 'media-server'] }
     - { role: cloudplow, tags: ['cloudplow'], when: ['use_remote'] }

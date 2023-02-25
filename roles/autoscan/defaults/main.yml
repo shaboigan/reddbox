@@ -59,7 +59,7 @@ autoscan_traefik_middleware: "{{ autoscan_traefik_middleware_default + ','
                                  + autoscan_traefik_middleware_custom }}"
 
 autoscan_traefik_certresolver: "{{ traefik_default_certresolver }}"
-autoscan_traefik_enabled: true
+autoscan_traefik_enabled: false
 
 ################################
 # Docker

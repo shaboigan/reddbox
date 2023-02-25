@@ -44,7 +44,7 @@ grafana_dns_proxy: "{{ dns.proxied }}"
 
 grafana_traefik_middleware: "{{ traefik_default_middleware }}"
 grafana_traefik_certresolver: "{{ traefik_default_certresolver }}"
-grafana_traefik_enabled: true
+grafana_traefik_enabled: false
 
 ################################
 # Plugins

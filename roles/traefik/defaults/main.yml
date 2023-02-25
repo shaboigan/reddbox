@@ -115,7 +115,7 @@ traefik_dns_provider_netcup:
 ################################
 
 traefik_traefik_certresolver: "{{ traefik_default_certresolver }}"
-traefik_traefik_enabled: true
+traefik_traefik_enabled: false
 
 ################################
 # Docker

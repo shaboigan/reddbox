@@ -58,8 +58,8 @@ cloudflared_traefik_middleware: "{{ cloudflared_traefik_middleware_default + ','
                                + cloudflared_traefik_middleware_custom }}"
 
 cloudflared_traefik_certresolver: "{{ traefik_default_certresolver }}"
-cloudflared_traefik_enabled: true
-cloudflared_traefik_api_enabled: true
+cloudflared_traefik_enabled: false
+cloudflared_traefik_api_enabled: false
 cloudflared_traefik_api_endpoint: "`/auth`,`/settings`"
 
 ################################

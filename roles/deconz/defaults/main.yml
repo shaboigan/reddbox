@@ -58,8 +58,8 @@ deconz_traefik_middleware: "{{ deconz_traefik_middleware_default + ','
                                + deconz_traefik_middleware_custom }}"
 
 deconz_traefik_certresolver: "{{ traefik_default_certresolver }}"
-deconz_traefik_enabled: true
-deconz_traefik_api_enabled: true
+deconz_traefik_enabled: false
+deconz_traefik_api_enabled: false
 deconz_traefik_api_endpoint: "`/auth`,`/settings`,`/flows`,`/flow`,`/nodes`"
 
 ################################

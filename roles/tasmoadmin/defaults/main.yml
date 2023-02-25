@@ -58,8 +58,8 @@ tasmoadmin_traefik_middleware: "{{ tasmoadmin_traefik_middleware_default + ','
                                + tasmoadmin_traefik_middleware_custom }}"
 
 tasmoadmin_traefik_certresolver: "{{ traefik_default_certresolver }}"
-tasmoadmin_traefik_enabled: true
-tasmoadmin_traefik_api_enabled: true
+tasmoadmin_traefik_enabled: false
+tasmoadmin_traefik_api_enabled: false
 tasmoadmin_traefik_api_endpoint: "`/auth`,`/settings`,`/flows`,`/flow`,`/nodes`"
 
 ################################

@@ -106,7 +106,7 @@ plex_traefik_middleware: "{{ plex_traefik_middleware_default
                              + plex_traefik_themepark_middleware }}"
 
 plex_traefik_certresolver: "{{ traefik_default_certresolver }}"
-plex_traefik_enabled: true
+plex_traefik_enabled: false
 plex_traefik_error_pages_enabled: false
 plex_traefik_gzip_enabled: false
 

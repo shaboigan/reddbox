@@ -1,0 +1,159 @@
+##########################################################################
+# Title:         Reddbox: Nginx Proxy Manager | Default Variables        #
+# Author(s):     salty                                                   #
+# URL:           https://github.com/shaboigan/Reddbox                    #
+# --                                                                     #
+##########################################################################
+#                   GNU General Public License v3.0                      #
+##########################################################################
+---
+################################
+# Basics
+################################
+
+nginx_proxy_manager_instances: ["node-red"]
+
+################################
+# Paths
+################################
+
+nginx_proxy_manager_paths_folder: "{{ nginx_proxy_manager_name }}"
+nginx_proxy_manager_paths_location: "{{ server_appdata_path }}/{{ nginx_proxy_manager_paths_folder }}"
+nginx_proxy_manager_paths_folders_list:
+  - "{{ nginx_proxy_manager_paths_location }}"
+
+################################
+# Web
+################################
+
+nginx_proxy_manager_web_subdomain: "{{ nginx_proxy_manager_name }}"
+nginx_proxy_manager_web_domain: "{{ user.domain }}"
+nginx_proxy_manager_web_port: "81"
+nginx_proxy_manager_web_url: "{{ 'https://' + lookup('vars', nginx_proxy_manager_name + '_web_subdomain', default=nginx_proxy_manager_web_subdomain)
+                      + '.' + lookup('vars', nginx_proxy_manager_name + '_web_domain', default=nginx_proxy_manager_web_domain) }}"
+
+################################
+# DNS
+################################
+
+nginx_proxy_manager_dns_record: "{{ lookup('vars', nginx_proxy_manager_name + '_web_subdomain', default=nginx_proxy_manager_web_subdomain) }}"
+nginx_proxy_manager_dns_zone: "{{ lookup('vars', nginx_proxy_manager_name + '_web_domain', default=nginx_proxy_manager_web_domain) }}"
+nginx_proxy_manager_dns_proxy: "{{ dns.proxied }}"
+
+################################
+# Traefik
+################################
+
+nginx_proxy_manager_traefik_sso_middleware: "{{ traefik_default_sso_middleware }}"
+
+nginx_proxy_manager_traefik_middleware_default: "{{ traefik_default_middleware + ','
+                                       + lookup('vars', nginx_proxy_manager_name + '_traefik_sso_middleware', default=nginx_proxy_manager_traefik_sso_middleware)
+                                    if (lookup('vars', nginx_proxy_manager_name + '_traefik_sso_middleware', default=nginx_proxy_manager_traefik_sso_middleware) | length > 0)
+                                    else traefik_default_middleware }}"
+nginx_proxy_manager_traefik_middleware_custom: ""
+nginx_proxy_manager_traefik_middleware: "{{ nginx_proxy_manager_traefik_middleware_default + ','
+                               + nginx_proxy_manager_traefik_middleware_custom
+                            if (not nginx_proxy_manager_traefik_middleware_custom.startswith(',') and nginx_proxy_manager_traefik_middleware_custom | length > 0)
+                            else nginx_proxy_manager_traefik_middleware_default
+                               + nginx_proxy_manager_traefik_middleware_custom }}"
+
+nginx_proxy_manager_traefik_certresolver: "{{ traefik_default_certresolver }}"
+nginx_proxy_manager_traefik_enabled: false
+nginx_proxy_manager_traefik_api_enabled: false
+nginx_proxy_manager_traefik_api_endpoint: "`/auth`,`/settings`,`/flows`,`/flow`,`/nodes`"
+
+################################
+# Docker
+################################
+
+# Container
+nginx_proxy_manager_docker_container: "{{ nginx_proxy_manager_name }}"
+
+# Image
+nginx_proxy_manager_docker_image_pull: true
+nginx_proxy_manager_docker_image_repo: "nodered/node-red"
+nginx_proxy_manager_docker_image_tag: "latest"
+nginx_proxy_manager_docker_image: "{{ lookup('vars', nginx_proxy_manager_name + '_docker_image_repo', default=nginx_proxy_manager_docker_image_repo)
+                           + ':' + lookup('vars', nginx_proxy_manager_name + '_docker_image_tag', default=nginx_proxy_manager_docker_image_tag) }}"
+
+# Ports
+nginx_proxy_manager_docker_ports_defaults:
+  - "8080:80"
+  - "81:81"
+  - "4443:443"
+nginx_proxy_manager_docker_ports_custom: []
+nginx_proxy_manager_docker_ports: "{{ lookup('vars', nginx_proxy_manager_name + '_docker_ports_defaults', default=nginx_proxy_manager_docker_ports_defaults)
+                           + lookup('vars', nginx_proxy_manager_name + '_docker_ports_custom', default=nginx_proxy_manager_docker_ports_custom) }}"
+
+# Envs
+nginx_proxy_manager_docker_envs_default:
+  TZ: "{{ tz }}"
+nginx_proxy_manager_docker_envs_custom: {}
+nginx_proxy_manager_docker_envs: "{{ lookup('vars', nginx_proxy_manager_name + '_docker_envs_default', default=nginx_proxy_manager_docker_envs_default)
+                          | combine(lookup('vars', nginx_proxy_manager_name + '_docker_envs_custom', default=nginx_proxy_manager_docker_envs_custom)) }}"
+
+# Commands
+nginx_proxy_manager_docker_commands_default: []
+nginx_proxy_manager_docker_commands_custom: []
+nginx_proxy_manager_docker_commands: "{{ lookup('vars', nginx_proxy_manager_name + '_docker_commands_default', default=nginx_proxy_manager_docker_commands_default)
+                              + lookup('vars', nginx_proxy_manager_name + '_docker_docker_commands_custom', default=nginx_proxy_manager_docker_commands_custom) }}"
+
+# Volumes
+nginx_proxy_manager_docker_volumes_default:
+  - "{{ nginx_proxy_manager_paths_location }}:/data"
+  - "{{ nginx_proxy_manager_paths_location }}:/eetc/letsencrypt"
+nginx_proxy_manager_docker_volumes_custom: []
+nginx_proxy_manager_docker_volumes: "{{ lookup('vars', nginx_proxy_manager_name + '_docker_volumes_default', default=nginx_proxy_manager_docker_volumes_default)
+                             + lookup('vars', nginx_proxy_manager_name + '_docker_volumes_custom', default=nginx_proxy_manager_docker_volumes_custom) }}"
+
+# Devices
+nginx_proxy_manager_docker_devices_default: []
+nginx_proxy_manager_docker_devices_custom: []
+nginx_proxy_manager_docker_devices: "{{ lookup('vars', nginx_proxy_manager_name + '_docker_devices_default', default=nginx_proxy_manager_docker_devices_default)
+                             + lookup('vars', nginx_proxy_manager_name + '_docker_devices_custom', default=nginx_proxy_manager_docker_devices_custom) }}"
+
+# Hosts
+nginx_proxy_manager_docker_hosts_default: []
+nginx_proxy_manager_docker_hosts_custom: []
+nginx_proxy_manager_docker_hosts: "{{ docker_hosts_common
+                           | combine(lookup('vars', nginx_proxy_manager_name + '_docker_hosts_default', default=nginx_proxy_manager_docker_hosts_default))
+                           | combine(lookup('vars', nginx_proxy_manager_name + '_docker_hosts_custom', default=nginx_proxy_manager_docker_hosts_custom)) }}"
+
+# Labels
+nginx_proxy_manager_docker_labels_default: {}
+nginx_proxy_manager_docker_labels_custom: {}
+nginx_proxy_manager_docker_labels: "{{ docker_labels_common
+                            | combine(lookup('vars', nginx_proxy_manager_name + '_docker_labels_default', default=nginx_proxy_manager_docker_labels_default))
+                            | combine(lookup('vars', nginx_proxy_manager_name + '_docker_labels_custom', default=nginx_proxy_manager_docker_labels_custom)) }}"
+
+# Hostname
+nginx_proxy_manager_docker_hostname: "{{ nginx_proxy_manager_name }}"
+
+# Networks
+nginx_proxy_manager_docker_networks_alias: "{{ nginx_proxy_manager_name }}"
+nginx_proxy_manager_docker_networks_default: []
+nginx_proxy_manager_docker_networks_custom: []
+nginx_proxy_manager_docker_networks: "{{ docker_networks_common
+                              + lookup('vars', nginx_proxy_manager_name + '_docker_networks_default', default=nginx_proxy_manager_docker_networks_default)
+                              + lookup('vars', nginx_proxy_manager_name + '_docker_networks_custom', default=nginx_proxy_manager_docker_networks_custom) }}"
+
+# Capabilities
+nginx_proxy_manager_docker_capabilities_default: []
+nginx_proxy_manager_docker_capabilities_custom: []
+nginx_proxy_manager_docker_capabilities: "{{ lookup('vars', nginx_proxy_manager_name + '_docker_capabilities_default', default=nginx_proxy_manager_docker_capabilities_default)
+                                  + lookup('vars', nginx_proxy_manager_name + '_docker_capabilities_custom', default=nginx_proxy_manager_docker_capabilities_custom) }}"
+
+# Security Opts
+nginx_proxy_manager_docker_security_opts_default: []
+nginx_proxy_manager_docker_security_opts_custom: []
+nginx_proxy_manager_docker_security_opts: "{{ lookup('vars', nginx_proxy_manager_name + '_docker_security_opts_default', default=nginx_proxy_manager_docker_security_opts_default)
+                                   + lookup('vars', nginx_proxy_manager_name + '_docker_security_opts_custom', default=nginx_proxy_manager_docker_security_opts_custom) }}"
+
+# Restart Policy
+nginx_proxy_manager_docker_restart_policy: unless-stopped
+
+# State
+nginx_proxy_manager_docker_state: started
+
+# User
+nginx_proxy_manager_docker_user: "{{ uid }}:{{ gid }}"
