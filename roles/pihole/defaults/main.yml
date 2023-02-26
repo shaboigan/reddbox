@@ -100,7 +100,8 @@ pihole_docker_commands: "{{ lookup('vars', pihole_name + '_docker_commands_defau
 
 # Volumes
 pihole_docker_volumes_default:
-  - "{{ pihole_paths_location }}:/data"
+  - "{{ pihole_paths_location }}:/etc/pihole"
+  - "{{ pihole_paths_location }}:/etc/dnsmasq.d"
 pihole_docker_volumes_custom: []
 pihole_docker_volumes: "{{ lookup('vars', pihole_name + '_docker_volumes_default', default=pihole_docker_volumes_default)
                              + lookup('vars', pihole_name + '_docker_volumes_custom', default=pihole_docker_volumes_custom) }}"
