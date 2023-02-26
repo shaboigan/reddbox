@@ -100,8 +100,8 @@ pihole_docker_commands: "{{ lookup('vars', pihole_name + '_docker_commands_defau
 
 # Volumes
 pihole_docker_volumes_default:
-  - "{{ pihole_paths_location }}:/etc/pihole"
-  - "{{ pihole_paths_location }}:/etc/dnsmasq.d"
+  - "{{ pihole_paths_location }}/etc-pihole:/etc/pihole"
+  - "{{ pihole_paths_location }}/etc-dnsmasq.d:/etc/dnsmasq.d"
 pihole_docker_volumes_custom: []
 pihole_docker_volumes: "{{ lookup('vars', pihole_name + '_docker_volumes_default', default=pihole_docker_volumes_default)
                              + lookup('vars', pihole_name + '_docker_volumes_custom', default=pihole_docker_volumes_custom) }}"
@@ -156,4 +156,4 @@ pihole_docker_restart_policy: unless-stopped
 pihole_docker_state: started
 
 # User
-pihole_docker_user: "{{ uid }}:{{ gid }}"
+pihole_docker_user: "root:root"

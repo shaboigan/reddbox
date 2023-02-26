@@ -96,11 +96,11 @@ cloudflared_docker_commands: "{{ lookup('vars', cloudflared_name + '_docker_comm
                               + lookup('vars', cloudflared_name + '_docker_docker_commands_custom', default=cloudflared_docker_commands_custom) }}"
 
 # Volumes
-cloudflared_docker_volumes_default:
-  - "{{ cloudflared_paths_location }}:/config"
-cloudflared_docker_volumes_custom: []
-cloudflared_docker_volumes: "{{ lookup('vars', cloudflared_name + '_docker_volumes_default', default=cloudflared_docker_volumes_default)
-                             + lookup('vars', cloudflared_name + '_docker_volumes_custom', default=cloudflared_docker_volumes_custom) }}"
+#cloudflared_docker_volumes_default:
+#  - "{{ cloudflared_paths_location }}:/config"
+#cloudflared_docker_volumes_custom: []
+#cloudflared_docker_volumes: "{{ lookup('vars', cloudflared_name + '_docker_volumes_default', default=cloudflared_docker_volumes_default)
+#                             + lookup('vars', cloudflared_name + '_docker_volumes_custom', default=cloudflared_docker_volumes_custom) }}"
 
 # Devices
 cloudflared_docker_devices_default: []
