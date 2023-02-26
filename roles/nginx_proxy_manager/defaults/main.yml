@@ -100,8 +100,8 @@ nginx_proxy_manager_docker_commands: "{{ lookup('vars', nginx_proxy_manager_name
 
 # Volumes
 nginx_proxy_manager_docker_volumes_default:
-  - "{{ nginx_proxy_manager_paths_location }}:/data"
-  - "{{ nginx_proxy_manager_paths_location }}:/eetc/letsencrypt"
+  - "{{ nginx_proxy_manager_paths_location }}/data:/data"
+  - "{{ nginx_proxy_manager_paths_location }}/letsencrypt:/etc/letsencrypt"
 nginx_proxy_manager_docker_volumes_custom: []
 nginx_proxy_manager_docker_volumes: "{{ lookup('vars', nginx_proxy_manager_name + '_docker_volumes_default', default=nginx_proxy_manager_docker_volumes_default)
                              + lookup('vars', nginx_proxy_manager_name + '_docker_volumes_custom', default=nginx_proxy_manager_docker_volumes_custom) }}"
@@ -156,4 +156,4 @@ nginx_proxy_manager_docker_restart_policy: unless-stopped
 nginx_proxy_manager_docker_state: started
 
 # User
-nginx_proxy_manager_docker_user: "{{ uid }}:{{ gid }}"
+nginx_proxy_manager_docker_user: "root:root"

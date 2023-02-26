@@ -8,6 +8,8 @@ user:
 cloudflare:
   email:
   api:
+cloudflared:
+  token: [] #add tken between square brackets
 plex:
   user:
   pass:
