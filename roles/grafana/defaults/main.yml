@@ -65,7 +65,8 @@ grafana_docker_image_tag: "latest"
 grafana_docker_image: "grafana/grafana:{{ grafana_docker_image_tag }}"
 
 # Ports
-grafana_docker_ports_defaults: []
+grafana_docker_ports_defaults:
+  - "3000:3000"
 grafana_docker_ports_custom: []
 grafana_docker_ports: "{{ grafana_docker_ports_defaults
                           + grafana_docker_ports_custom }}"

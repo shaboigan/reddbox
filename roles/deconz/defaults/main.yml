@@ -28,7 +28,7 @@ deconz_paths_folders_list:
 
 deconz_web_subdomain: "{{ deconz_name }}"
 deconz_web_domain: "{{ user.domain }}"
-deconz_web_port: "8080"
+deconz_web_port: "9090"
 deconz_web_url: "{{ 'https://' + lookup('vars', deconz_name + '_web_subdomain', default=deconz_web_subdomain)
                       + '.' + lookup('vars', deconz_name + '_web_domain', default=deconz_web_domain) }}"
 
@@ -77,7 +77,7 @@ deconz_docker_image: "{{ lookup('vars', deconz_name + '_docker_image_repo', defa
                            + ':' + lookup('vars', deconz_name + '_docker_image_tag', default=deconz_docker_image_tag) }}"
 
 # Ports
-deconz_websocket_port: "4443"
+deconz_websocket_port: "4444"
 deconz_vnc_port: "5900"
 deconz_docker_ports_defaults: []
 deconz_docker_ports_custom: []
@@ -168,4 +168,4 @@ deconz_docker_restart_policy: unless-stopped
 deconz_docker_state: started
 
 # User
-deconz_docker_user: "{{ uid }}:{{ gid }}"
+deconz_docker_user: "root:root"

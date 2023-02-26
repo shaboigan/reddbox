@@ -77,7 +77,8 @@ tasmoadmin_docker_image: "{{ lookup('vars', tasmoadmin_name + '_docker_image_rep
                            + ':' + lookup('vars', tasmoadmin_name + '_docker_image_tag', default=tasmoadmin_docker_image_tag) }}"
 
 # Ports
-tasmoadmin_docker_ports_defaults: []
+tasmoadmin_docker_ports_defaults:
+  - "5555:5555"
 tasmoadmin_docker_ports_custom: []
 tasmoadmin_docker_ports: "{{ lookup('vars', tasmoadmin_name + '_docker_ports_defaults', default=tasmoadmin_docker_ports_defaults)
                            + lookup('vars', tasmoadmin_name + '_docker_ports_custom', default=tasmoadmin_docker_ports_custom) }}"
@@ -152,4 +153,4 @@ tasmoadmin_docker_restart_policy: unless-stopped
 tasmoadmin_docker_state: started
 
 # User
-tasmoadmin_docker_user: "{{ uid }}:{{ gid }}"
+tasmoadmin_docker_user: "root:root"

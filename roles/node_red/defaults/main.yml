@@ -77,7 +77,8 @@ node_red_docker_image: "{{ lookup('vars', node_red_name + '_docker_image_repo', 
                            + ':' + lookup('vars', node_red_name + '_docker_image_tag', default=node_red_docker_image_tag) }}"
 
 # Ports
-node_red_docker_ports_defaults: []
+node_red_docker_ports_defaults:
+  - "1880:1880"
 node_red_docker_ports_custom: []
 node_red_docker_ports: "{{ lookup('vars', node_red_name + '_docker_ports_defaults', default=node_red_docker_ports_defaults)
                            + lookup('vars', node_red_name + '_docker_ports_custom', default=node_red_docker_ports_custom) }}"

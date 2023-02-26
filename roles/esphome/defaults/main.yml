@@ -77,7 +77,8 @@ esphome_docker_image: "{{ lookup('vars', esphome_name + '_docker_image_repo', de
                            + ':' + lookup('vars', esphome_name + '_docker_image_tag', default=esphome_docker_image_tag) }}"
 
 # Ports
-esphome_docker_ports_defaults: []
+esphome_docker_ports_defaults:
+  - "6052:6052"
 esphome_docker_ports_custom: []
 esphome_docker_ports: "{{ lookup('vars', esphome_name + '_docker_ports_defaults', default=esphome_docker_ports_defaults)
                            + lookup('vars', esphome_name + '_docker_ports_custom', default=esphome_docker_ports_custom) }}"
@@ -152,4 +153,4 @@ esphome_docker_restart_policy: unless-stopped
 esphome_docker_state: started
 
 # User
-esphome_docker_user: "{{ uid }}:{{ gid }}"
+esphome_docker_user: "root:root"
